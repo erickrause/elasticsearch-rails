@@ -16,6 +16,10 @@ rvm:
 jdk:
   - openjdk7
 
+env:
+  - TEST_BUNDLE_GEMFILE=$PWD/elasticsearch-model/gemfiles/3.0.gemfile
+  - TEST_BUNDLE_GEMFILE=$PWD/elasticsearch-model/gemfiles/4.0.gemfile
+
 services:
   - mongodb
 
@@ -24,11 +28,7 @@ before_script:
   - rake bundle:install
 
 script:
-  - SERVER=start bundle exec rake test:all
-
-gemfile:
-  - $PWD/elasticsearch-model/gemfiles/3.0.gemfile
-  - $PWD/elasticsearch-model/gemfiles/4.0.gemfile
+  - SERVER=start TEST_BUNDLE_GEMFILE=$TEST_BUNDLE_GEMFILE bundle exec rake test:all
 
 notifications:
   disable: true
